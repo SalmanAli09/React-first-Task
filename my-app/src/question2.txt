@@ -1,0 +1,67 @@
+<div>
+        <h2>Question # 2 : Briefly explain with an example what's the difference between
+          import Something from 'package' VS import "{"Something "}" from 'package'?</h2>
+        <h4>
+          This is a something default import:
+
+          // package.js
+          import num from 'anyPackage'
+
+          It only works if anyPackage contains a something default export:
+
+          // anyPackage.js
+          export default 1
+
+          In this case it doesn’t matter what name you assign to it when importing:
+
+          // package.js
+          import num from 'anyPackage'
+          import Mynum from ' anyPackage'
+          import something from 'anyPackage'
+
+          Because it will always resolve to whatever is the something default export of anyPackage.
+
+          This is a {something} import called anyPackage:
+
+          import {num} from 'anyPackage'
+
+          It only works if anyPackage contains a {something} export called anyPackage:
+
+          export const num = 1
+
+          In this case the name matters because you’re importing a specific thing by its export name:
+
+          // package.js
+          import {num} from 'anyPackage'
+          import {mynum} from 'anyPackage' // Doesn't work!
+          import {something} from 'anyPackage' // Doesn't work!
+
+          To make these work, you would add a corresponding {something} export to anyPackage:
+
+          // anyPackage.js
+          export const num= 1
+          export const mynum = 2
+          export const something = 3
+
+          A module can only have one something default export, but as many named exports as you like (zero, one, or many). You can import them together:
+
+          // package.js
+          import num, "{" mynum, something "}" from 'anyPackage'
+
+          Here, we import the default export as A, and named exports called myA and Something as myAand Something, respectively.
+
+          // anyPackage.js
+          export default 1
+          export const mynum = 2
+          export const something = 3
+
+          We can also assign them all different names when importing:
+
+          // package.js
+          import X, "{" mynum as myNo, something as mySomething  from 'anyPackage' "}"
+
+          The default exports tend to be used for whatever you normally expect to get from the module. The named exports tend to be used for utilities that might be handy, but aren’t always necessary. However it is up to you to choose how to export things: for example, a module might have no default export at all.
+
+
+        </h4>
+      </div>
